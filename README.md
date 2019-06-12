@@ -1,4 +1,7 @@
 # Abarrotes
+Apliacion creada para abarroterias con soporte para imagenes 
+
+se comlementa muy buen con [Api de abarroteria](https://github.com/Miguelmorales13/api-abarrotes)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
