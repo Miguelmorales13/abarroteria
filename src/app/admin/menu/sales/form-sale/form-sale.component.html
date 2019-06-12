@@ -1,0 +1,116 @@
+<form [formGroup]="formSale" (submit)="confirmBuy()" class="row">
+  <div class="col-12 col-md-5 mb-2">
+    <ng-multiselect-dropdown
+       [data]="_global.clients"
+       [placeholder]="'Cliente'"
+       searchPlaceholderText="'Buscar'"
+       [settings]="dropdownSettingsClients"
+       [disabled]="false"
+       (onSelect)="selectedClient($event)"
+       (onDeSelect)="unSelectedClient($event)"
+       >
+    </ng-multiselect-dropdown>
+  </div>
+  <div class="col-10 col-md-5 mb-2">
+    <ng-multiselect-dropdown
+    [data]="_global.products"
+    [placeholder]="'Productos'"
+    [settings]="dropdownSettings"
+    searchPlaceholderText="'Buscar'"
+    (onSelect)="onProductSelect($event)"
+    [disabled]="false"
+    >
+    </ng-multiselect-dropdown>
+  </div>
+  <div class="col-2 col-md-2 mb-2">
+    <button class="btn btn-sm btn-success" type="button" (click)="addProduct()">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div class="col-12 mb-2 table-responsive-sm">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Bodega</th>
+          <th>$</th>
+          <th>Cantidad</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr formArrayName="productos" *ngFor="let product of formSale.get('productos')['controls']; let i = index;" >
+          <td>
+            {{ getProduct(product['controls'].producto,'nombre')  }}
+          </td>
+          <td>
+            {{ getProduct(product['controls'].producto,'cantidad')| medicion:getProduct(product['controls'].producto,'forma'):getProduct(product['controls'].producto,'tipo_venta') }}
+          </td>
+          <td>
+            {{ getProduct(product['controls'].producto,'precio') | currency}}
+          </td>
+          <td  [formGroupName]="i" class="row">
+            <div class="col 12">
+              <select (change)="goTotal()" formControlName="tipo" name="tipo" class="form-control  mb-1" *ngIf="product['controls'].tipo && getProduct(product['controls'].producto,'tipo_venta') == 'kilos'">
+                <option selected disabled>Forma</option>
+                <option value="kilos" >Kilos</option>
+                <option value="gramos" >Gramos</option>
+              </select>
+              <select (change)="goTotal()" formControlName="tipo" name="tipo" class="form-control  mb-1" *ngIf="product['controls'].tipo && getProduct(product['controls'].producto,'tipo_venta') == 'litros'">
+                <option selected disabled>Forma</option>
+                <option value="litros" >Litros</option>
+                <option value="mililitros" >Mililitros</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <input class="form-control  mb-1" min="1" [max]="getProduct(product['controls'].producto,'cantidad')" formControlName="cantidad" (change)="goTotal()" name="cantidad" placeholder="Cantidad ..." type="number">
+
+            </div>
+            <input class="form-control d-none" formControlName="producto" name="producto" type="text">
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger" type="button" (click)="removeProduct(i)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td  >
+            {{totaSale | currency}}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <!-- caracteristicas -->
+  </div>
+  <!-- <input class="form-control d-none" formControlName="total" name="total" type="number"> -->
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-success" type="submit">Confirmar compra</button>
+    <button class="btn btn-danger" (click)="cancel()" type="reset">Cancelar</button>
+  </div>
+  
+</form>
+<app-modal modal_id="modalConfirm" type="modal-sm" title="Caja">
+  <div class="modal-body text-center">
+    <div class="row" >
+      <div class="col-12 mb-4">
+        <h2>Total a pagar {{formSale.value.total | currency}}</h2>
+        <h4>Dinero recivido</h4>
+      </div>
+      <div class="col-12 mb-4">
+        <input class="form-control" #recivido type="number">
+      </div>
+      <div class="col-12 mb-4">
+        <button class="btn btn-success btn-sm btn-block" type="button" (click)="onSubmit(formSale,recivido.value)" >Confirmar compra</button>
+        <button class="btn btn-danger btn-sm btn-block" data-dismiss="modal" type="button"  >Cancelar</button>
+      </div>
+    </div>
+  </div>
+</app-modal>
+<app-modal modal_id="modalCash" type="modal-sm" title="Cambio">
+  <div class="modal-body text-center">
+    <h4>{{cambio | currency}}</h4>
+  </div>
+</app-modal>

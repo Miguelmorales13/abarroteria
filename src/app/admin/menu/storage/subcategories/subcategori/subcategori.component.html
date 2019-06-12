@@ -1,0 +1,7 @@
+<div class="card">
+  <img class="card-img-top" *ngIf="subcategori" [src]="_global.urlApi+'subcategorias/'+subcategori.foto">
+  <div class="card-body">
+    <h5 class="card-title">{{subcategori.nombre | uppercase}}</h5>
+    <p class="card-text">{{subcategori.descripcion}}</p>
+  </div>
+</div>

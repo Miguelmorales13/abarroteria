@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de productos
+    </span>
+    <div>
+      <button class="btn btn-primary btn-sm" *ngIf="_access.accessRolsSection('productos','agregar')" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button"><span
+          class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i></button>
+      <!-- <button class="btn btn-warning btn-sm" type="button"><span class="d-none d-sm-inline-block">Listar&nbsp;</span><i class="fa fa-refresh"></i></button> -->
+    </div>
+  </div>
+  <div class="card-body">
+    <app-list-products (doProduct)="goDoProduct($event)"></app-list-products>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('productos','agregar') || _access.accessRolsSection('productos','modificar')" modal_id="modalAdd" type="modal-lg" [title]="accion">
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <app-form-product [product]="_global.selectedProduct" [edit]="edit" (clear)="onClose($event)"></app-form-product>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('productos','ver')" modal_id="modalView" type="modal-lg" [title]="accion">
+  <div class="modal-body">
+    <app-details-product [product]="_global.selectedProduct"></app-details-product>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('productos','eliminar')" modal_id="modalDelete" type="modal-lg" [title]="accion">
+  <div class="modal-body">
+    <app-delete-product (cancel)="onClose($event)"></app-delete-product>
+  </div>
+</app-modal>

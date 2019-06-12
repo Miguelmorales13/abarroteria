@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-sm-12 col-md-2">
+    <div class="form-group">
+      <select id="noReg" [(ngModel)]="noReg" class="form-control form-control-sm">
+        <option disabled selected>Cantidad de registros</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <select id="typeSearch" [(ngModel)]="typeSearch" class="form-control form-control-sm">
+      <option disabled> Tipo de busqueda </option>
+      <option *ngFor="let row of rows" [value]="row.key">{{row.name}}</option>
+    </select>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <input id="" placeholder="Buscar..." [(ngModel)]="search" class="form-control form-control-sm" type="text">
+  </div>
+</div>
+<div class="table-responsive-sm ">
+  <table class="table table-sm text-center table-borderless table-hover">
+    <thead class="text-center">
+      <tr>
+        <td style="cursor: pointer" *ngFor="let row of rows" (click)="order(row.key)">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" [key]="row.key" [name]="row.name"></app-td>
+        </td>
+        <td>Accíon</td>
+      </tr>
+    </thead>
+    <tbody *ngIf="petition.no && petition.progress" >
+      <tr *ngFor="let sale of _global.sales | filtration:typeSearch:search:rows | ordering:orderBy:formOrder | paginate: { itemsPerPage: noReg, currentPage: page }; let i=index">
+        <td> {{sale.cliente.nombre}} </td>
+        <td> {{sale.vendedor.nombre}} </td>
+        <td> {{sale.created_at | date:'medium'}} </td>
+        <td> {{sale.total | currency}} </td>
+        <td class="text-center d-flex justify-content-center">
+          <button *ngIf="_access.accessRolsSection('ventas','ver')" class="btn btn-success btn-sm" type="button" (click)="goViewSale(sale)" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i></button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!petition.no || !petition.progress" >
+      <tr>
+        <td colspan="5">
+          <i class="fa fa-spinner fa-4x fa-spin"></i>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          No hay ventas registradas
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="p-0">
+          <span class="badge badge-primary">
+            Registros totales : {{_global.sales.length}}
+          </span>
+        </td>
+        <td colspan="3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          <!-- <pagination [noData]="_global.sales.length" [noDataView]="noReg" (pageActivated)="changePage($event)"></pagination> -->
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>
+<app-modal modal_id="modalView" type="modal" title="Venta">
+    <div class="modal-body">
+      <app-details-sale [sale]="_global.selectedSale"></app-details-sale>
+    </div>
+  </app-modal>

@@ -1,0 +1,50 @@
+<form [formGroup]="formProvider" (submit)="onSubmit(formProvider)" enctype="multipart/form-data" class="row">
+  <div class="col-12 col-md-6 mb-2">
+    <input id="nombre" required class="form-control" minlength="3" maxlength="100" formControlName="nombre" placeholder="Nombre..."
+      type="text">
+    <validate [field]="formProvider['controls'].nombre" nameField="Nombre"></validate>
+  </div>
+  <div class="col-12 col-md-6 mb-2">
+    <input id="telefono" required class="form-control" minlength="3" maxlength="100" formControlName="telefono" name="telefono"
+      placeholder="Telefono..." type="text">
+    <validate [field]="formProvider['controls'].telefono" nameField="Telefono"></validate>
+  </div>
+  <div class="col-12 mb-2">
+    <input id="direccion" required class="form-control" formControlName="direccion" name="direccion" placeholder="Direccíon..."
+      type="text">
+    <validate [field]="formProvider['controls'].direccion" nameField="Dirección"></validate>
+  </div>
+  <div class="col-12 d-flex justify-content-between">
+    <h5>Productos</h5>
+    <div>
+      <button class="btn btn-sm btn-success" type="button" (click)="addProduct()">
+        <i class="fa fa-plus"></i>
+      </button>
+      <button class="btn btn-sm btn-danger" type="button" (click)="removeProduct()">
+        <i class="fa fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <div formArrayName="productos" *ngFor="let product of formProvider.get('productos')['controls']; let i = index;"
+    class="col-12 mb-2">
+    <!-- caracteristicas -->
+    <div [formGroupName]="i" class="row">
+      <div class="col-12 col-md-6">
+        <select required formControlName="producto" class="form-control">
+          <option *ngFor="let prod of _global.products " [value]="prod._id">{{prod.nombre}}</option>
+        </select>
+        <validate [field]="product['controls'].producto" nameField="Producto"></validate>
+      </div>
+      <div class="col-12 col-md-6">
+        <input class="form-control" formControlName="precio" name="precio" placeholder="Precio ..."
+          type="number">
+        <validate [field]="product['controls'].precio" nameField="Precio"></validate>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-success" [disabled]="petition" type="submit"> <i *ngIf="petition" class="fa fa-spin fa-cog"></i> Guardar</button>
+    <button class="btn btn-danger" [disabled]="petition" (click)="cancel()" type="reset">Cancelar</button>
+  </div>
+
+</form>

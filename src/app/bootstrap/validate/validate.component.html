@@ -1,0 +1,16 @@
+<div   *ngIf="field.errors && field.touched">
+  <small *ngIf="field.errors.required" class=" text-danger">
+    {{nameField | uppercase}} Este campo es requerido
+  </small>
+  <small *ngIf="field.errors.minlength" class=" text-danger">
+    {{nameField | uppercase}} El minimo es {{field.errors.minlength.requiredLength}}
+  </small>
+  <small *ngIf="field.errors.pattern" class=" text-danger">
+    {{nameField | uppercase}} {{ getPattern(field.errors.pattern.requiredPattern)}} Digitos requeridos
+  </small>
+</div>
+<div *ngIf="!field.errors">
+  <small class="text-success">
+    {{nameField | uppercase}} Correcto
+  </small>
+</div>

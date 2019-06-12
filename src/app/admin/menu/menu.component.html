@@ -1,0 +1,168 @@
+<header-admin (logout)="logout($event)" ></header-admin>
+<sidebar-admin  (logout)="logout($event)" (collapsedEvent)="receiveCollapsed($event)"></sidebar-admin>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+    <router-outlet></router-outlet>
+</section>
+
+
+<!-- <div class="contenedor">
+  <nav class="navbar fixed-top navbar-expand-md navbar-fixed-top bg-primary navbar-dark">
+    <a class="navbar-brand" routerLink="/admin/menu">{{_global.nameApp}}</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+        aria-expanded="false" aria-label="Toggle navigation"> <i class="fa fa-bars"></i> </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbar">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 d-md-none">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/menu">inicio</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/menu/ventas">Ventas</a></li>
+        <li class="nav-item" *ngIf="_access.accessRolsRoutes('clientes')" routerLinkActive="active"><a class="nav-link" routerLink="/admin/menu/clientes">Clientes</a></li>
+        <li class="nav-item dropdown" *ngIf="_access.accessRolsRoutes('productos') || _access.accessRolsRoutes('categorias') || _access.accessRolsRoutes('subcategorias')" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="productosNav" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
+          <div class="dropdown-menu" aria-labelledby="productosNav">
+            <a class="dropdown-item" *ngIf="_access.accessRolsRoutes('productos')" routerLink="/admin/menu/productos" >Productos</a>
+            <a class="dropdown-item" *ngIf="_access.accessRolsRoutes('categorias')" routerLink="/admin/menu/categorias" >Categorias</a>
+            <a class="dropdown-item" *ngIf="_access.accessRolsRoutes('subcategorias')" routerLink="/admin/menu/subcategorias" >Subcategorias</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown" *ngIf="_access.accessRolsRoutes('ventas')" routerLinkActive="active">
+            <a class="nav-link dropdown-toggle" id="configuracionNav" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">Ventas</a>
+            <div class="dropdown-menu" aria-labelledby="configuracionNav">
+                <a class="dropdown-item" routerLink="/admin/menu/ventas">Listado</a>
+                <a class="dropdown-item" routerLink="/admin/menu/ventas/agregar">Creacion</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown" *ngIf="_access.accessRolsRoutes('usuarios') || _access.accessRolsRoutes('proveedores') || _access.accessRolsRoutes('roles') || _access.accessRolsSection('reportes','ver')" routerLinkActive="active">
+            <a class="nav-link dropdown-toggle"  id="configuracionNav" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">Configuracion</a>
+            <div class="dropdown-menu" aria-labelledby="configuracionNav">
+                <a class="dropdown-item" *ngIf="_access.accessRolsRoutes('usuarios')" routerLink="/admin/menu/usuarios">Usuarios</a>
+                <a class="dropdown-item" *ngIf="_access.accessRolsRoutes('proveedores')" routerLink="/admin/menu/proveedores">Proveedores</a>
+                <a class="dropdown-item" *ngIf="_access.accessRolsRoutes('roles')" routerLink="/admin/menu/roles">Roles</a>
+                <a class="dropdown-item" *ngIf="_access.accessRolsSection('reportes','ver')" routerLink="/admin/menu/reportes">Reporte</a>
+            </div>
+        </li>
+      </ul>
+        <div class=" justify-content-center">
+            <button class="btn btn-outline-success " type="submit"><i class="fa fa-bell-o"></i> &nbsp; <span class="badge badge-danger">1</span> </button>
+            <div class="btn-group">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                     <i class="fa fa-user"></i> &nbsp; Perfil
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" routerLink="/admin/menu/perfil">Perfil</a>
+                    <a class="dropdown-item" (click)="logout()" routerLink="/admin/adios">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div id="menuLateral" class="col-md-2 border-right">
+        <ul class="nav nav-sidebar d-flex flex-column">
+          <li class="pl-1 d-flex flex-column"  >
+            <a class="px-3 py-2 w-100"  [routerLink]="['/admin/menu']"><i class="fa fa-fire"></i>&nbsp;Inicio</a>
+          </li>
+          <li class="pl-1 d-flex" *ngIf="_access.accessRolsRoutes('clientes')" routerLinkActive="active">
+            <a
+              class="px-3 py-2 w-100 d-flex justify-content-between"
+              routerLink="clientes"
+            >
+            <span><i class="fa fa-users"></i>&nbsp;Clientes</span>
+            </a>
+          </li>
+          <li class="pl-1 d-flex flex-column" *ngIf="_access.accessRolsRoutes('productos') || _access.accessRolsRoutes('categorias') || _access.accessRolsRoutes('subcategorias')" routerLinkActive="active" >
+            <a class="px-3 py-2 w-100 d-flex justify-content-between" data-toggle="collapse" href="#collapseProductos" role="button" aria-expanded="false" aria-controls="collapseProductos">
+              <span><i class="fa fa-th"></i>&nbsp;Productos</span><i class="fa fa-arrow-right"></i>
+            </a>
+            <div class="collapse" id="collapseProductos">
+                <ul class="pl-4 d-flex flex-column nav-sidebar">
+                    <li class=" d-flex"  *ngIf="_access.accessRolsRoutes('productos') || _access.accessRolsRoutes('categorias') || _access.accessRolsRoutes('subcategorias')" routerLinkActive="active">
+                        <a class="px-2 py-1 w-100" [routerLink]="['/admin/menu/almacen']">
+                            <i class="fa fa-pencil-square"></i>&nbsp;<span>Almacen</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex"  *ngIf="_access.accessRolsRoutes('categorias')" routerLinkActive="active">
+                        <a class="px-2 py-1 w-100" routerLink="almacen/categorias">
+                            <i class="fa fa-pencil-square"></i>&nbsp;<span>Categorias</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex"  *ngIf="_access.accessRolsRoutes('subcategorias')" routerLinkActive="active">
+                        <a class="px-2 py-1 w-100" routerLink="almacen/subcategorias">
+                            <i class="fa fa-pencil"></i>&nbsp;<span>Subcategorias</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex" *ngIf="_access.accessRolsRoutes('productos')"  routerLinkActive="active">
+                        <a class="px-2 py-1 w-100" routerLink="almacen/productos">
+                            <i class="fa fa-archive"></i>&nbsp;<span>Productos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+          </li>
+          <li class=" d-flex flex-column pl-1" *ngIf="_access.accessRolsRoutes('ventas')" routerLinkActive="active">
+            <a class="px-3 py-2 w-100 d-flex justify-content-between" data-toggle="collapse" href="#collapseSales" role="button"
+                aria-expanded="false" aria-controls="collapseSales">
+                <span><i class="fa fa-cog"></i>&nbsp;Ventas</span><i class="fa fa-arrow-right"></i>
+            </a>
+            <div class="collapse" id="collapseSales">
+                <ul class="pl-4 d-flex flex-column nav-sidebar">
+                    <li class=" d-flex" routerLinkActive="active">
+                        <a class="px-2 py-1 w-100" routerLink="ventas">
+                            <i class="fa fa-money"></i>&nbsp;<span>Listado</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex" routerLinkActive="active">
+                        <a class="px-2 py-1 w-100" routerLink="ventas/agregar">
+                            <i class="fa fa-plus"></i>&nbsp;<span>Creacion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+          </li>
+          <li class=" d-flex flex-column pl-1" *ngIf="_access.accessRolsRoutes('proveedores') || _access.accessRolsRoutes('usuarios') || _access.accessRolsRoutes('roles') || _access.accessRolsSection('reportes','ver')"  routerLinkActive="active">
+            <a class="px-3 py-2 w-100 d-flex justify-content-between" data-toggle="collapse" href="#collapseConfiguracion" role="button" aria-expanded="false" aria-controls="collapseConfiguracion">
+              <span><i class="fa fa-cog"></i>&nbsp;Configuracion</span><i class="fa fa-arrow-right"></i>
+            </a>
+            <div class="collapse" id="collapseConfiguracion">
+                <ul class="pl-4 d-flex flex-column nav-sidebar">
+                    <li class=" d-flex" routerLinkActive="active" *ngIf="_access.accessRolsRoutes('proveedores') || _access.accessRolsRoutes('usuarios') || _access.accessRolsRoutes('roles') || _access.accessRolsSection('reportes','ver')">
+                        <a class="px-2 py-1 w-100"  routerLink="configuracion">
+                            <i class="fa fa-id-card"></i>&nbsp;<span>Configuraciones</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex" routerLinkActive="active" *ngIf="_access.accessRolsRoutes('proveedores')">
+                        <a class="px-2 py-1 w-100"  routerLink="configuracion/proveedores">
+                            <i class="fa fa-id-card"></i>&nbsp;<span>Proveedores</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex" routerLinkActive="active" *ngIf="_access.accessRolsRoutes('usuarios')">
+                        <a class="px-2 py-1 w-100" routerLink="configuracion/usuarios">
+                            <i class="fa fa-user"></i>&nbsp;<span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex" routerLinkActive="active" *ngIf="_access.accessRolsRoutes('roles')">
+                        <a class="px-2 py-1 w-100" routerLink="configuracion/roles">
+                            <i class="fa fa-question-circle-o"></i>&nbsp;<span>Roles</span>
+                        </a>
+                    </li>
+                    <li class=" d-flex" routerLinkActive="active"  *ngIf="_access.accessRolsSection('reportes','ver')" >
+                        <a class="px-2 py-1 w-100" routerLink="configuracion/reportes">
+                            <i class="fa fa-file-pdf-o"></i>&nbsp;<span>Reportes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="main" class="col-md-10 offset-md-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div> -->

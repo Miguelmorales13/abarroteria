@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Clave</td>
+          <td>{{user._id}} </td>
+        </tr>
+        <tr>
+          <td>Nombre</td>
+          <td>{{user.nombre}} </td>
+        </tr>
+        <tr>
+          <td>Telefono</td>
+          <td> <a href="tel:+{{user.telefono}}">{{user.telefono}}</a></td>
+        </tr>
+        <tr>
+          <td>Rol</td>
+          <td>{{user.rol ?user.rol.nombre:'N/A'}} </td>
+        </tr>
+        <tr>
+          <td>Estatus</td>
+          <td>{{user.estatus}} </td>
+        </tr>
+        <tr>
+          <td>Frecha de creacion</td>
+          <td>{{user.created_at}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

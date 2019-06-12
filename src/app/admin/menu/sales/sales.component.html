@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Ventas
+    </span>
+    <div>
+      <button *ngIf="_access.accessRolsSection('ventas','agregar')" class="btn btn-primary btn-sm"  routerLink="agregar" type="button"><span
+          class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i>
+        </button>
+      <button *ngIf="_access.accessRolsSection('ventas','ver')" class="btn btn-warning btn-sm" routerLink="/admin/menu/ventas" type="button">
+        <span class="d-none d-sm-inline-block">Listado&nbsp;</span><i class="fa fa-list"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

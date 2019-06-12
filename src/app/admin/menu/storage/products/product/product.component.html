@@ -1,0 +1,7 @@
+<div class="card">
+  <img class="card-img-top" *ngIf="product" [src]="_global.urlApi+'productos/'+product.foto">
+  <div class="card-body">
+    <h5 class="card-title">$ {{ product.precio}} MXN - {{product.nombre | uppercase}}</h5>
+    <p class="card-text">{{product.descripcion}}</p>
+  </div>
+</div>

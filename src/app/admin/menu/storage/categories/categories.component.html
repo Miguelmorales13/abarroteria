@@ -1,0 +1,31 @@
+<div class="card" >
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de categorias
+    </span>
+    <div>
+      <button class="btn btn-primary btn-sm" *ngIf="_access.accessRolsSection('categorias','agregar')" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button"><span class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i></button>
+      <!-- <button class="btn btn-warning btn-sm" type="button"><span class="d-none d-sm-inline-block">Listar&nbsp;</span><i class="fa fa-refresh"></i></button> -->
+    </div>
+  </div>
+  <div class="card-body" >
+    <list-categories (doCategori)="goDoCategori($event)"></list-categories>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('categorias','agregar') || _access.accessRolsSection('categorias','modificar')" modal_id="modalAdd" type="modal-lg" [title]="accion" >
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <form-categorie [edit]="edit" (clear)="onClose($event)"></form-categorie>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('categorias','ver')" modal_id="modalView" type="modal-lg" [title]="accion" >
+  <div class="modal-body">
+    <app-details-categori [categori]="_global.selectedCategori"></app-details-categori>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('categorias','eliminar')" modal_id="modalDelete" type="modal-lg" [title]="accion" >
+  <div class="modal-body">
+    <app-delete-categorie  (cancel)="onClose($event)"></app-delete-categorie>
+  </div>
+</app-modal>
+

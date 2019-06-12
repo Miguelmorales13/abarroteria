@@ -1,0 +1,12 @@
+<nav aria-label="Page navigation" class="justify-content-end align-items-end d-flex">
+  <ul class="pagination pagination-sm">
+    <li class="page-item" [ngClass]="pageActive<=1 ? 'disabled': ''" ><a (click)="previous()" class="page-link" >Anterior</a></li>
+    <li class="page-item" [ngClass]="pageActive<=1 ? 'd-none': ''">
+      <a class="page-link" (click)="first()" aria-label="Primero">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li *ngFor="let p of pagesActivate" class="page-item" [ngClass]="(pageActive==p)? 'active' : '' " ><a class="page-link" (click)="activePagination(p)">{{p}} </a></li>
+    <li class="page-item" [ngClass]="pageActive>=pages.length ? 'disabled' :''"><a class="page-link" (click)="next()">Siquiente</a></li>
+  </ul>
+</nav>

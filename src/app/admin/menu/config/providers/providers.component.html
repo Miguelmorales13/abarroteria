@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de proveedores
+    </span>
+    <div>
+      <button class="btn btn-primary btn-sm" *ngIf="_access.accessRolsSection('proveedores','agregar')" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button"><span
+          class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i></button>
+      <!-- <button class="btn btn-warning btn-sm" type="button"><span class="d-none d-sm-inline-block">Listar&nbsp;</span><i class="fa fa-refresh"></i></button> -->
+    </div>
+  </div>
+  <div class="card-body">
+    <app-list-providers (doProvider)="goDoProvider($event)"></app-list-providers>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('proveedores','agregar') || _access.accessRolsSection('proveedores','modificar')" modal_id="modalAdd" type="modal" [title]="accion">
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <app-form-provider [provider]="_global.selectedProvider" [edit]="edit" (clear)="onClose($event)"></app-form-provider>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('proveedores','ver')" modal_id="modalView" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-details-provider [provider]="_global.selectedProvider"></app-details-provider>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('proveedores','eliminar')" modal_id="modalDelete" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-delete-provider (cancel)="onClose($event)"></app-delete-provider>
+  </div>
+</app-modal>

@@ -1,0 +1,8 @@
+<div class="card">
+  <img class="card-img-top" *ngIf="categori.foto" [src]="_global.urlApi+'categorias/'+categori.foto">
+  <div class="card-body">
+    <h5 class="card-title">{{categori.nombre | uppercase}}</h5>
+    <p class="card-text">{{categori.descripcion}}</p>
+  </div>
+</div>
+

@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de usuarios
+    </span>
+    <div>
+      <button class="btn btn-primary btn-sm" *ngIf="_access.accessRolsSection('clientes','agregar')" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button">
+        <span class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <app-list-clients (doClient)="goDoClient($event)"></app-list-clients>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('clientes','agregar')" modal_id="modalAdd" type="modal" [title]="accion">
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <app-form-client [edit]="edit" (clear)="onClose($event)"></app-form-client>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('clientes','ver') || _access.accessRolsSection('clientes','modificar')" modal_id="modalView" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-details-client [client]="_global.selectedClient"></app-details-client>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('clientes','eliminar')" modal_id="modalDelete" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-delete-client (cancel)="onClose($event)"></app-delete-client>
+  </div>
+</app-modal>

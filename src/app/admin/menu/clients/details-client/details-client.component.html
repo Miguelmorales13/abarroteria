@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Clave</td>
+          <td>{{client._id}} </td>
+        </tr>
+        <tr>
+          <td>Nombre</td>
+          <td>{{client.nombre}} </td>
+        </tr>
+        <tr>
+          <td>Telefono</td>
+          <td> <a href="tel:+{{client.telefono}}">{{client.telefono}}</a></td>
+        </tr>
+        <tr>
+          <td>Dirección</td>
+          <td>{{client.direccion }} </td>
+        </tr>
+        <tr>
+          <td>Frecha de creacion</td>
+          <td>{{client.created_at}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

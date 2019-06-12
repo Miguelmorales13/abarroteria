@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-sm-12 col-md-2">
+    <div class="form-group">
+      <select id="noReg" [(ngModel)]="noReg" class="form-control form-control-sm">
+        <option disabled selected>Cantidad de registros</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <select id="typeSearch" [(ngModel)]="typeSearch" class="form-control form-control-sm">
+      <option disabled> Tipo de busqueda </option>
+      <option *ngFor="let row of rows" [value]="row.key">{{row.name}}</option>
+    </select>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <input id="" placeholder="Buscar..." [(ngModel)]="search" class="form-control form-control-sm" type="text">
+  </div>
+</div>
+<div class="table-responsive ">
+  <table class="table text-center table-sm text-center table-borderless table-hover">
+    <thead class="text-center">
+      <tr>
+        <td class="d-flex justify-content-center">Foto</td>
+        <td style="cursor: pointer" (click)="order('nombre')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="nombre" name="Nombre"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('subcategoria.categoria.nombre')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="subcategoria.categoria.nombre" name="Categoria"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('subcategoria.nombre')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="subcategoria.nombre" name="Subcategoria"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('costo')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="costo" name="P.Compra"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('precio')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="precio" name="P.Venta"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('cantidad')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="cantidad" name="Existencia"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('estatus')">
+            <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="estatus" name="Estatus"></app-td>
+        </td>
+        <td class="d-flex justify-content-center">Accíon</td>
+      </tr>
+    </thead>
+    <tbody *ngIf="!petition.progress && petition.no">
+      <tr *ngFor="let product of _global.products | filtration:typeSearch:search:rows | ordering:orderBy:formOrder | paginate: { itemsPerPage: noReg, currentPage: page }; let i=index">
+        <td> <img class="img-fluid" width="60px" [src]="_global.urlApi+'productos/'+product.foto" [alt]="product.nombre">
+        </td>
+        <td> {{product.nombre}} </td>
+        <td> {{(product.subcategoria && product.subcategoria.categoria)?product.subcategoria.categoria.nombre:'N/A'}} </td>
+        <td> {{product.subcategoria?product.subcategoria.nombre:'N/A'}} </td>
+        <td>{{product.costo | currency}}</td>
+        <td>{{product.precio | currency}}</td>
+        <td><span class="badge" [ngClass]="product.cantidad >= 5 ? 'badge-success': 'badge-danger' ">{{product.cantidad | medicion:product.forma:product.tipo_venta }}</span>
+        </td>
+        <td class="text-center"> 
+          <span class="badge" [ngClass]="product.estatus == 'Activo'? 'badge-success': 'badge-danger' ">{{product.estatus}}</span>
+          </td>
+        <td class="text-center d-flex justify-content-center">
+          <button class="btn btn-success btn-sm" *ngIf="_access.accessRolsSection('productos','ver')" type="button" (click)="goDoProduct(product,'view',i)"><i class="fa fa-eye"></i></button>
+          <button class="btn btn-warning btn-sm" *ngIf="_access.accessRolsSection('productos','modificar')" type="button" (click)="goDoProduct(product,'update',i)"><i
+              class="fa fa-pencil"></i></button>
+          <button class="btn btn-danger btn-sm" *ngIf="_access.accessRolsSection('productos','eliminar')" type="button" (click)="goDoProduct(product,'delete',i)"><i
+              class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="petition.progress || !petition.no">
+      <tr *ngIf="petition.progress">
+        <td colspan="9">
+          <i class="fa fa-spin fa-spinner fa-4x"></i>
+        </td>
+      </tr>
+      <tr *ngIf="!petition.no">
+        <td colspan="9">No hay productos registrados</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="p-0">
+          <span class="badge badge-primary">
+            Registros totales : {{_global.products.length}}
+          </span>
+        </td>
+        <td colspan="3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          <!-- <pagination [noData]="_global.products.length" [noDataView]="noReg" (pageActivated)="changePage($event)"></pagination> -->
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>

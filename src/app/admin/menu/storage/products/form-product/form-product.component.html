@@ -1,0 +1,116 @@
+<form [formGroup]="formProduct" (submit)="onSubmit(formProduct)" enctype="multipart/form-data" class="row">
+    <div class="col-12 col-md-4 mb-2" *ngIf="!petition.progressCategori">
+      <select required id="categoria" formControlName="categoria"  (change)="selectCategori(formProduct['controls'].categoria.value)" class="form-control">
+        <option *ngFor="let categori of _global.categories" [value]="categori._id">{{categori.nombre}}</option>
+      </select>
+    </div>
+    <div class="col-12 col-md-4 mb-2" *ngIf="petition.progressCategori">
+      <i class="fa fa-spin fa-spinner fa-4x"></i>
+    </div>
+    <div class="col-12 col-md-4 mb-2" *ngIf="!petition.progressSubcategori">
+      <select required formControlName="subcategoria" name="subcategoria"  id="subcategoria"
+      class="form-control">
+        <option *ngFor="let subcategori of subcategories" [value]="subcategori._id">{{subcategori.nombre}}</option>
+      </select>
+      <validate [field]="formProduct['controls'].subcategoria" nameField="Subcategoria"></validate>
+    </div>
+    <div class="col-12 col-md-4 mb-2" *ngIf="petition.progressSubcategori">
+      <i class="fa fa-spin fa-spinner fa-4x"></i>
+    </div>
+    <div class="col-12 mb-3 col-md-4 mb-2 input-group">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="foto" (change)="changeFoto($event)" aria-describedby="foto">
+        <label class="custom-file-label" for="foto">{{_global.img?_global.img.substr(0,10) + ' ...': 'Foto'}}</label>
+      </div>
+    </div>
+    <div class="col-12 d-flex justify-content-between">
+      <h5>Caracteristicas</h5>
+      <div>
+        <button class="btn btn-sm btn-success" type="button" (click)="addCaracteristic()">
+          <i class="fa fa-plus"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" type="button" (click)="removeCaracteristic()">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <div formArrayName="caracteristicas" *ngFor="let caracteritic of formProduct.get('caracteristicas')['controls']; let i = index;" class="col-12 mb-2"> <!-- caracteristicas -->
+      <div [formGroupName]="i" class="row">
+        <div class="col-12 col-md-6">
+          <input class="form-control" maxlength="100" formControlName="caracteristica" name="caracteristica" placeholder="Caracteristica..." type="text">
+          <validate [field]="caracteritic['controls'].caracteristica" nameField="Caracteristica"></validate>
+        </div>
+        <div class="col-12 col-md-6">
+          <input class="form-control" maxlength="100" formControlName="dato" name="caracteristica"
+            placeholder="Descripcion ..." type="text">
+          <validate [field]="caracteritic['controls'].dato" nameField="Descripción"></validate>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-2">
+      <input id="nombre" required class="form-control" minlength="3" maxlength="100" (keyup)="replacePath(nombre)"
+        formControlName="nombre" placeholder="Nombre..." type="text">
+      <validate [field]="formProduct['controls'].nombre" nameField="Nombre"></validate>
+    </div>
+    <div class="col-12 col-md-6 mb-2">
+      <input id="ruta" required class="form-control" minlength="3" maxlength="100" formControlName="ruta" name="ruta" placeholder="Ruta..." type="text">
+      <validate [field]="formProduct['controls'].ruta" nameField="Ruta"></validate>
+    </div>
+    <div class="col-4 mb-2">
+        <select class=" form-control " formControlName="forma"  name="forma" >
+            <option selected disabled>Froma de registro</option>
+            <option value="litros">Litros</option>
+            <option value="kilos">Kilos</option>
+            <option value="unidades">Unidades</option>
+          </select>
+      <validate [field]="formProduct['controls'].forma" nameField="Froma de registro"></validate>
+    </div>
+    <div class="col-4 mb-2" *ngIf="formProduct.value.forma=='kilos'">
+      <select class="form-control" formControlName="tipo_venta" name="tipo_venta" >
+        <option selected disabled>Forma de guardado</option>
+        <option value="kilos">Kilos</option>
+        <option value="gramos">Gramos</option>
+      </select>
+      <validate [field]="formProduct['controls'].tipo_venta" nameField="Tipo de venta"></validate>
+    </div>
+    <div class="col-4 mb-2" *ngIf="formProduct.value.forma=='litros'">
+      <select class=" form-control"   formControlName="tipo_venta" name="tipo_venta">
+        <option selected disabled>Froma de guardado</option>
+        <option value="mililitros">Mililitros</option>
+        <option value="litros">Litros</option>
+      </select>
+      <validate [field]="formProduct['controls'].tipo_venta" nameField="Tipo de venta"></validate>
+    </div>
+    <div class="col-4 mb-2">
+      <input id="cantidad" required class="form-control"  formControlName="cantidad" name="cantidad" placeholder="Cantidad..." type="number">
+      <validate [field]="formProduct['controls'].cantidad" nameField="Cantidad"></validate>
+    </div>
+    
+    <div class="col-6 mb-2">
+      <input id="precio" required class="form-control"  formControlName="precio" name="precio" placeholder="Precio venta..." type="number">
+      <validate [field]="formProduct['controls'].precio" nameField="Precio venta"></validate>
+    </div>
+    <div class="col-6 mb-2">
+      <input id="costo" required class="form-control" formControlName="costo" name="costo" placeholder="Precio compra..." type="number">
+      <validate [field]="formProduct['controls'].costo" nameField="Precio compra"></validate>
+    </div>
+    <div class="col-12 mb-2">
+      <textarea id="descripcion" maxlength="300" formControlName="descripcion"
+        name="descripcion"  placeholder="Descripcion" class="form-control" rows="3"></textarea>
+        <validate [field]="formProduct['controls'].descripcion" nameField="Descripción"></validate>
+    </div>
+    
+    <div class="col-12 mb-3" *ngIf="edit">
+      <select class=" form-control " formControlName="estatus" name="estatus" >
+        <option selected disabled>Estatus</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+      <validate [field]="formProduct['controls'].estatus" nameField="Estatus"></validate>
+    </div>
+    <div class="col-12 d-flex justify-content-end">
+      <button class="btn btn-success" [disabled]="petition.progress" type="submit"> <i *ngIf="petition.progress" class="fa fa-spin fa-cog"></i> Guardar</button>
+      <button class="btn btn-danger" [disabled]="petition.progress" (click)="cancel()" type="reset">Cancelar</button>
+    </div>
+
+</form>

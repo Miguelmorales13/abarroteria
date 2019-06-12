@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de rolos
+    </span>
+    <div>
+      <button *ngIf="_access.accessRolsSection('roles','agregar')" class="btn btn-primary btn-sm" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button"><span
+          class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i></button>
+      <!-- <button class="btn btn-warning btn-sm" type="button"><span class="d-none d-sm-inline-block">Listar&nbsp;</span><i class="fa fa-refresh"></i></button> -->
+    </div>
+  </div>
+  <div class="card-body">
+    <app-list-rols (doRol)="goDoRol($event)"></app-list-rols>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('roles','agregar') || _access.accessRolsSection('roles','modificar')" modal_id="modalAdd" type="modal" [title]="accion">
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <app-form-rol [edit]="edit" (clear)="onClose($event)"></app-form-rol>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('roles','ver')" modal_id="modalView" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-details-rol [rol]="_global.selectedRol"></app-details-rol>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('roles','eliminar')" modal_id="modalDelete" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-delete-rol (cancel)="onClose($event)"></app-delete-rol>
+  </div>
+</app-modal>

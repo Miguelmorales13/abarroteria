@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de usuarios
+    </span>
+    <div>
+      <button *ngIf="_access.accessRolsSection('usuarios','agregar')" class="btn btn-primary btn-sm" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button">
+        <span class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <app-list-users (doUser)="goDoUser($event)"></app-list-users>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('usuarios','agregar') || _access.accessRolsSection('usuarios','modificar')" modal_id="modalAdd" type="modal" [title]="accion">
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <app-form-user [edit]="edit" (clear)="onClose($event)"></app-form-user>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('usuarios','ver')" modal_id="modalView" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-details-user [user]="_global.selectedUser"></app-details-user>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('usuarios','eliminar')" modal_id="modalDelete" type="modal" [title]="accion">
+  <div class="modal-body">
+    <app-delete-user (cancel)="onClose($event)"></app-delete-user>
+  </div>
+</app-modal>

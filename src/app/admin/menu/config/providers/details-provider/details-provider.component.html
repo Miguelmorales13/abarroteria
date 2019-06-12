@@ -1,0 +1,44 @@
+<div *ngIf="provider._id" class="row">
+  <div class="col-12">
+    <h5>Proveedor</h5>
+    <table class="table table-sm">
+      <tbody>
+        <tr>
+          <td>Clave</td>
+          <td>{{provider._id}} </td>
+        </tr>
+        <tr>
+          <td>Nombre</td>
+          <td>{{provider.nombre}} </td>
+        </tr>
+        <tr>
+          <td>Telefono</td>
+          <td><a class="link" href="tel:+{{provider.telefono}}">{{provider.telefono}}</a>  </td>
+        </tr>
+        <tr>
+          <td>Direccíon</td>
+          <td><a class="link" href="https://www.google.com/maps/place/{{goMaps(provider.direccion)}}" target="_blank">{{provider.direccion}}</a></td>
+        </tr>
+        <tr>
+          <td>Frecha de creacion</td>
+          <td>{{provider.created_at}} </td>
+        </tr>
+      </tbody>
+    </table>
+    <h5>Productos</h5>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Costo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prod of provider.productos">
+          <td [ngClass]="{'text-danger': !prod.producto}">{{prod.producto?prod.producto.nombre:'Producto eiminado'}}</td>
+          <td>$ {{prod.precio}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

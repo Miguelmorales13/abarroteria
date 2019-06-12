@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header">
+    Reportes
+  </div>
+  <div class="card-body">
+    <form [formGroup]="formReport" (submit)="onSubmit(formReport)" class="row" >
+      <div class="col-12 col-sm-6 col-md-4 mb-2">
+        <label for="tipe">Seleccione el tipo de reporte</label>
+        <select id="tipe"  formControlName="tipe" name="tipo" [(ngModel)]="reportCaract.tipe" class="form-control">
+          <option *ngFor="let type of typesReports" [value]="type" >{{type | uppercase }}</option>
+        </select>
+        <validate [field]="formReport['controls'].tipe" ></validate> 
+      </div>      
+      <div class="col-12 col-sm-6 col-md-4 mb-2">
+        <label for="first_date">Fecha de inicio</label>
+        <input id="first_date" type="date" formControlName="first_date"  name="tipo" [(ngModel)]="reportCaract.first_date" class="form-control" type="date">
+        <validate [field]="formReport['controls'].first_date" ></validate>
+          <small *ngIf="formReport.errors && formReport.errors.noDate && formReport['controls'].first_date.touched" class=" text-danger">
+            La fecha de inicio es mayor a la de termino
+          </small>
+      </div>      
+      <div class="col-12 col-sm-6 col-md-4 mb-2">
+        <label for="last_date">Fecha de termino</label>
+        <input id="last_date" type="date" formControlName="last_date"  name="tipo" [(ngModel)]="reportCaract.last_date" class="form-control" type="date">
+        <validate [field]="formReport['controls'].last_date" ></validate>
+          <small *ngIf="formReport.errors && formReport.errors.noDateLast && formReport['controls'].last_date.touched" class=" text-danger">
+            La fecha de termino es mayor a hoy
+          </small>
+      </div>      
+      <div class="col-12 col-sm-6 col-md-4 mb-2">
+        <button class="btn btn-success" type="submit" [disabled]="petition"> <i *ngIf="petition" class="fa fa-spin fa-cog"></i> Generar</button>      
+      </div>      
+    </form>
+  </div>
+</div>

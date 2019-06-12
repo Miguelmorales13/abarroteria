@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Clave</td>
+          <td>{{categori._id}} </td>
+        </tr>
+        <tr>
+          <td>Nombre</td>
+          <td>{{categori.nombre}} </td>
+        </tr>
+        <tr>
+          <td>Nombre</td>
+          <td>{{categori.estatus}} </td>
+        </tr>
+        <tr>
+          <td>Descripcion</td>
+          <td>{{categori.descripcion}} </td>
+        </tr>
+        <tr>
+          <td>Frecha de creacion</td>
+          <td>{{categori.created_at}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-12 col-md-6">
+    <app-categori [categori]="categori" ></app-categori>
+  </div>
+</div>

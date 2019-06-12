@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-12 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title my-2 text-center">Productos por acabarse</h5>
+        <div class="table-responsive-sm">
+          <table class="table table-sm table-light">
+            <thead class="thead-light text-center">
+              <tr>
+                <th>Nombre</th>
+                <th>Almacen</th>
+                <th>Angregar</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!petition && this.prods">
+              <tr *ngFor="let product of prods.aboutToEnd" >
+                <td>{{product.nombre }}</td>
+                <td>{{product.cantidad }}</td>
+                <td class="text-center"> 
+                  <button class="btn btn-warning btn-sm" *ngIf="_access.accessRolsSection('productos','modificar')" data-toggle="modal" data-target="#modalUpdate" (click)="activateUpdate(product)" type="button"> <i class="fa fa-plus"></i> </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title my-2 text-center">Productos terminados</h5>
+        <div class="table-responsive-sm">
+          <table class="table table-sm table-light">
+            <thead class="thead-light text-center">
+              <tr>
+                <th>Nombre</th>
+                <th>Agregar</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!petition && this.prods" >
+              <tr *ngFor="let product of prods.finished" >
+                <td>{{product.nombre }}</td>
+                <td class="text-center">
+                  <button class="btn btn-warning btn-sm" *ngIf="_access.accessRolsSection('productos','modificar')" data-toggle="modal" data-target="#modalUpdate" (click)="activateUpdate(product)" type="button"> <i class="fa fa-plus"></i> </button> 
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('productos','modificar')" modal_id="modalUpdate" type="modal-sm" [title]="'Agregar a producto'">
+    <div class="modal-body">
+      <h5 class="text-center mb-3">{{_global.selectedProduct?_global.selectedProduct.nombre:''}} </h5>
+      <div class="row">
+        <div class="col-12 mb-3">
+          <input #cantidad class="form-control" required min="1" type="number">
+        </div>
+        <div class="col-12 mb-3">
+          <button class="btn btn-success btn-block" (click)="onSubmit(cantidad.value)" type="button">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </app-modal>
+<!-- <div class="row">
+  <div class="col-12 col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Ventas semana</h5>
+        <p class="card-text">
+          Numero: {{salesWeek.no}} <br>
+          Total generado: {{salesWeek.total | currency}} 
+        </p>
+      </div>
+    </div>
+  </div>    
+  <div class="col mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Ventas la ultima semana</h5>
+        <p class="card-text">Content</p>
+      </div>
+    </div>
+  </div>  
+</div> -->

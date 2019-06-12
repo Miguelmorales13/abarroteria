@@ -1,0 +1,10 @@
+
+<p class="text-center">¿Estas seguro de eliminar esta categoria?, una vez eliminada no se podra recuperar</p>
+
+<app-details-categori [categori]="_global.selectedCategori" ></app-details-categori>
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-success" [disabled]="petition.progress" (click)="confirm()"  type="button"> 
+    <i *ngIf="petition.progress" class="fa fa-cog fa-spin"></i> Confirmar
+  </button>
+  <button class="btn btn-danger" (click)="cancelDelete()" type="button">Cancelar</button>
+</div>

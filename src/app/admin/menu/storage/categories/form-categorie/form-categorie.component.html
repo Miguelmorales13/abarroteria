@@ -1,0 +1,44 @@
+<form #formCategori="ngForm" (submit)="onSubmit(formCategori)" class="row">
+  <div class="col-sm-12 col-md-6">
+    <div class="col-12 form-group">
+      <input id="nombre" required class="form-control" minlength="3" maxlength="100" (keyup)="replacePath(nombre)" [(ngModel)]="_global.selectedCategori.nombre" name="nombre" #nombre="ngModel" placeholder="Nombre..."  type="text">
+      <validate [field]="nombre" nameField="Nombre"></validate>
+    </div>
+    <div class="col-12 form-group">
+      <input id="ruta" required class="form-control" minlength="3" maxlength="100" [(ngModel)]="_global.selectedCategori.ruta" name="ruta" #ruta="ngModel" placeholder="Ruta..."  type="text">
+      <validate [field]="ruta" nameField="Ruta" ></validate>
+    </div>
+    <div class="col-12 form-group">
+      <textarea id="descripcion"  maxlength="300" [(ngModel)]="_global.selectedCategori.descripcion" name="descripcion" #descripcion="ngModel" placeholder="Descripcion" class="form-control" rows="3"></textarea>
+      <validate [field]="descripcion" nameField="Descripcion"></validate>
+    </div>
+    <div class="col-12 form-group input-group">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="foto" (change)="changeFoto($event)" aria-describedby="foto">
+        <label class="custom-file-label" for="foto">{{_global.img?_global.img.substr(0,10):'Foto'}}</label>
+      </div>
+    </div>
+    <div class="col-12 form-group" *ngIf="edit" >
+      <select class="form-control" [(ngModel)]="_global.selectedCategori.estatus" name="estatus" #estatus="ngModel" >
+        <option selected disabled>Estatus</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+      <validate [field]="estatus" nameField="Estatus"></validate>
+    </div>
+    <div class="col-12 d-flex justify-content-end" >
+      <button class="btn btn-success" [disabled]="petition.progress" type="submit" > <i *ngIf="petition.progress" class="fa fa-cog fa-spinner"></i> Guardar</button>
+      <button class="btn btn-danger" [disabled]="petition.progress" (click)="cancel()" type="reset" >Cancelar</button>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6">
+    <div class="card">
+      <img class="card-img-top" *ngIf="_global.img" [src]="_global.img">
+      <div class="card-body">
+        <h5 class="card-title">{{_global.selectedCategori.nombre | uppercase}}</h5>
+        <p class="card-text">{{_global.selectedCategori.descripcion}}</p>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-sm-12 col-md-2">
+    <div class="form-group">
+      <select id="noReg" [(ngModel)]="noReg" class="form-control form-control-sm">
+        <option disabled selected>Cantidad de registros</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <select id="typeSearch" [(ngModel)]="typeSearch" class="form-control form-control-sm">
+      <option disabled> Tipo de busqueda </option>
+      <option *ngFor="let row of rows" [value]="row.key">{{row.name}}</option>
+    </select>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <input id="" placeholder="Buscar..." [(ngModel)]="search" class="form-control form-control-sm" type="text">
+  </div>
+</div>
+<div class="table-responsive-sm ">
+  <table class="table text-center table-sm table-borderless table-hover">
+    <thead class="text-center">
+      <tr>
+        <td style="cursor: pointer" (click)="order('nombre')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="nombre" name="Nombre"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('telefono')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="telefono" name="Telefono"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('rol.nombre')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="rol.nombre" name="Rol"></app-td>
+        </td>
+        <td style="cursor: pointer" (click)="order('estatus')">
+          <app-td [orderBy]="orderBy" [formOrder]="formOrder" key="estatus" name="Estatus"></app-td>
+        </td>
+        <td>Accíon</td>
+      </tr>
+    </thead>
+    <tbody *ngIf="!petition.progress && petition.no">
+      <tr *ngFor="let user of _global.users | filtration:typeSearch:search:rows | ordering:orderBy:formOrder | paginate: { itemsPerPage: noReg, currentPage: page }; let i=index">
+        <td> {{user.nombre}} </td>
+        <td> {{user.telefono}} </td>
+        <td> {{user.rol.nombre}} </td>
+        <td class="text-center"> 
+          <span class="badge" [ngClass]="user.estatus == 'Activo'? 'badge-success': 'badge-danger' ">{{user.estatus}}</span>
+        </td>
+        <td class="text-center d-flex justify-content-center">
+          <button *ngIf="_access.accessRolsSection('usuarios','ver')" class="btn btn-success btn-sm" type="button" (click)="goDoUser(user,'view',i)"><i class="fa fa-eye"></i></button>
+          <button *ngIf="_access.accessRolsSection('usuarios','modificar')" class="btn btn-warning btn-sm" type="button" (click)="goDoUser(user,'update',i)"><i class="fa fa-pencil"></i></button>
+          <button *ngIf="_access.accessRolsSection('usuarios','eliminar')" class="btn btn-danger btn-sm" type="button" (click)="goDoUser(user,'delete',i)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="petition.progress || !petition.no">
+      <tr *ngIf="petition.progress">
+        <td colspan="5">
+          <i class="fa fa-spin fa-spinner fa-4x"></i>
+        </td>
+      </tr>
+      <tr *ngIf="!petition.no">
+        <td colspan="5">No hay usuarios registrados</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="p-0">
+          <span class="badge badge-primary">
+            Registros totales : {{_global.users.length}}
+          </span>
+        </td>
+        <td colspan="3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          <!-- <pagination [noData]="_global.users.length" [noDataView]="noReg" (pageActivated)="changePage($event)"></pagination> -->
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>

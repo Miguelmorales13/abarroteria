@@ -1,0 +1,40 @@
+<h5>detalles de la venta</h5>
+<table class="table table-sm">
+  <tbody>
+    <tr>
+      <td>Fecha</td>
+      <td>{{sale.created_at | date:'medium'}} </td>
+    </tr>
+    <tr>
+      <td>Cliente</td>
+      <td>{{sale.cliente?sale.cliente.nombre:''}} </td>
+    </tr>
+    <tr>
+      <td>Vendedor</td>
+      <td>{{sale.vendedor?sale.vendedor.nombre: ''}} </td>
+    </tr>
+    <tr>
+      <td>Total de la compra</td>
+      <td>{{sale.total | currency}} </td>
+    </tr>
+    <tr>
+      <td>Estatus</td>
+      <td>{{sale.estatus}} </td>
+    </tr>
+  </tbody>
+</table>
+<h5>Productos de la venta</h5>
+<table *ngIf="sale.productos" class="table table-sm">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prod of sale.productos" >
+      <td [ngClass]="{'text-danger': !prod.producto}"> {{prod.producto?prod.producto.nombre:'Producto eliminado'}} </td>
+      <td> {{prod.cantidad }} </td>
+    </tr>
+  </tbody>
+</table>

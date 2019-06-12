@@ -1,0 +1,282 @@
+<form #formRol="ngForm" (submit)="onSubmit(formRol)" class="row">
+    <div class="col-12 form-group">
+      <input required id="nombre" required class="form-control" minlength="3" maxlength="100" [(ngModel)]="_global.selectedRol.nombre" name="nombre" #nombre="ngModel" placeholder="Nombre..." type="text">
+      <validate [field]="nombre" nameField="Nombre"></validate>
+    </div>
+    <div class="col-12 form-group">
+      <textarea required id="descripcion" minlength="3" maxlength="300" [(ngModel)]="_global.selectedRol.descripcion" name="descripcion"
+      #descripcion="ngModel" placeholder="Descripcion" class="form-control" rows="3"></textarea>
+      <validate [field]="descripcion" nameField="Descripción"></validate>
+    </div>
+    <div class="col-12 table-responsive-sm">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>Permisos</th>
+            <th>Ver</th>
+            <th>Agregar</th>
+            <th>Actuaizar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Todos</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input #allView (click)="goActiveShitch('ver',allView.checked)" type="checkbox" id="allView" class="custom-control-input">
+                <label class="custom-control-label" for="allView"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input #allAdd (click)="goActiveShitch('agregar',allAdd.checked)" type="checkbox" id="allAdd" class="custom-control-input">
+                <label class="custom-control-label" for="allAdd"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input #allUpdate (click)="goActiveShitch('modificar',allUpdate.checked)" type="checkbox" id="allUpdate" class="custom-control-input">
+                <label class="custom-control-label" for="allUpdate"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input #allDelete (click)="goActiveShitch('eliminar',allDelete.checked)" type="checkbox" id="allDelete" class="custom-control-input">
+                <label class="custom-control-label" for="allDelete"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Usuarios</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.usuarios.ver" #permisos.usuarios.ver="ngModel" name="permisos.usuarios.ver" type="checkbox" id="permisos.usuarios.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.usuarios.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.usuarios.agregar" #permisos.usuarios.agregar="ngModel" name="permisos.usuarios.agregar" type="checkbox" id="permisos.usuarios.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.usuarios.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.usuarios.modificar" #permisos.usuarios.modificar="ngModel" name="permisos.usuarios.modificar" type="checkbox" id="permisos.usuarios.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.usuarios.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.usuarios.eliminar" #permisos.usuarios.eliminar="ngModel" name="permisos.usuarios.eliminar" type="checkbox" id="permisos.usuarios.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.usuarios.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Roles</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.roles.ver" #permisos.roles.ver="ngModel" name="permisos.roles.ver" type="checkbox" id="permisos.roles.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.roles.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.roles.agregar" #permisos.roles.agregar="ngModel" name="permisos.roles.agregar" type="checkbox" id="permisos.roles.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.roles.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.roles.modificar" #permisos.roles.modificar="ngModel" name="permisos.roles.modificar" type="checkbox" id="permisos.roles.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.roles.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.roles.eliminar" #permisos.roles.eliminar="ngModel" name="permisos.roles.eliminar" type="checkbox" id="permisos.roles.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.roles.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Clientes</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.clientes.ver" #permisos.clientes.ver="ngModel" name="permisos.clientes.ver" type="checkbox" id="permisos.clientes.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.clientes.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.clientes.agregar" #permisos.clientes.agregar="ngModel" name="permisos.clientes.agregar" type="checkbox" id="permisos.clientes.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.clientes.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.clientes.modificar" #permisos.clientes.modificar="ngModel" name="permisos.clientes.modificar" type="checkbox" id="permisos.clientes.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.clientes.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.clientes.eliminar" #permisos.clientes.eliminar="ngModel" name="permisos.clientes.eliminar" type="checkbox" id="permisos.clientes.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.clientes.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Proveedores</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.proveedores.ver" #permisos.proveedores.ver="ngModel" name="permisos.proveedores.ver" type="checkbox" id="permisos.proveedores.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.proveedores.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.proveedores.agregar" #permisos.proveedores.agregar="ngModel" name="permisos.proveedores.agregar" type="checkbox" id="permisos.proveedores.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.proveedores.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.proveedores.modificar" #permisos.proveedores.modificar="ngModel" name="permisos.proveedores.modificar" type="checkbox" id="permisos.proveedores.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.proveedores.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.proveedores.eliminar" #permisos.proveedores.eliminar="ngModel" name="permisos.proveedores.eliminar" type="checkbox" id="permisos.proveedores.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.proveedores.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Ventas</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.ventas.ver" #permisos.ventas.ver="ngModel" name="permisos.ventas.ver" type="checkbox" id="permisos.ventas.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.ventas.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.ventas.agregar" #permisos.ventas.agregar="ngModel" name="permisos.ventas.agregar" type="checkbox" id="permisos.ventas.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.ventas.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.ventas.modificar" #permisos.ventas.modificar="ngModel" name="permisos.ventas.modificar" type="checkbox" id="permisos.ventas.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.ventas.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.ventas.eliminar" #permisos.ventas.eliminar="ngModel" name="permisos.ventas.eliminar" type="checkbox" id="permisos.ventas.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.ventas.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Categorias</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.categorias.ver" #permisos.categorias.ver="ngModel" name="permisos.categorias.ver" type="checkbox" id="permisos.categorias.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.categorias.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.categorias.agregar" #permisos.categorias.agregar="ngModel" name="permisos.categorias.agregar" type="checkbox" id="permisos.categorias.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.categorias.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.categorias.modificar" #permisos.categorias.modificar="ngModel" name="permisos.categorias.modificar" type="checkbox" id="permisos.categorias.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.categorias.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.categorias.eliminar" #permisos.categorias.eliminar="ngModel" name="permisos.categorias.eliminar" type="checkbox" id="permisos.categorias.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.categorias.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Subcategorias</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.subcategorias.ver" #permisos.subcategorias.ver="ngModel" name="permisos.subcategorias.ver" type="checkbox" id="permisos.subcategorias.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.subcategorias.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.subcategorias.agregar" #permisos.subcategorias.agregar="ngModel" name="permisos.subcategorias.agregar" type="checkbox" id="permisos.subcategorias.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.subcategorias.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.subcategorias.modificar" #permisos.subcategorias.modificar="ngModel" name="permisos.subcategorias.modificar" type="checkbox" id="permisos.subcategorias.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.subcategorias.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.subcategorias.eliminar" #permisos.subcategorias.eliminar="ngModel" name="permisos.subcategorias.eliminar" type="checkbox" id="permisos.subcategorias.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.subcategorias.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Productos</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.productos.ver" #permisos.productos.ver="ngModel" name="permisos.productos.ver" type="checkbox" id="permisos.productos.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.productos.ver"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.productos.agregar" #permisos.productos.agregar="ngModel" name="permisos.productos.agregar" type="checkbox" id="permisos.productos.agregar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.productos.agregar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.productos.modificar" #permisos.productos.modificar="ngModel" name="permisos.productos.modificar" type="checkbox" id="permisos.productos.modificar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.productos.modificar"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.productos.eliminar" #permisos.productos.eliminar="ngModel" name="permisos.productos.eliminar" type="checkbox" id="permisos.productos.eliminar" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.productos.eliminar"></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Reportes</td>
+            <td colspan="4">
+              <div class="custom-control custom-switch">
+                <input [(ngModel)]="_global.selectedRol.permisos.reportes.ver" #permisos.reportes.ver="ngModel" name="permisos.reportes.ver" type="checkbox" id="permisos.reportes.ver" class="custom-control-input">
+                <label class="custom-control-label" for="permisos.reportes.ver"></label>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 d-flex justify-content-end">
+      <button class="btn btn-success" [disabled]="petition" type="submit"> <i *ngIf="petition" class="fa fa-spin fa-cog"></i> Guardar</button>
+      <button class="btn btn-danger" [disabled]="petition" (click)="cancel()" type="reset">Cancelar</button>
+    </div>
+</form>

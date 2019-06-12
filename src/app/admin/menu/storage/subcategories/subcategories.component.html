@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      Listado de subcategorias
+    </span>
+    <div>
+      <button *ngIf="_access.accessRolsSection('subcategorias','agregar')" class="btn btn-primary btn-sm" (click)="clear()" data-toggle="modal" data-target="#modalAdd" type="button"><span
+          class="d-none d-sm-inline-block">Agregar&nbsp;</span><i class="fa fa-plus"></i></button>
+      <!-- <button class="btn btn-warning btn-sm" type="button"><span class="d-none d-sm-inline-block">Listar&nbsp;</span><i class="fa fa-refresh"></i></button> -->
+    </div>
+  </div>
+  <div class="card-body">
+    <app-list-subcategories (doSubcategori)="goDoSubcategori($event)"></app-list-subcategories>
+  </div>
+</div>
+<app-modal *ngIf="_access.accessRolsSection('subcategorias','agregar')|| _access.accessRolsSection('subcategorias','modificar')" modal_id="modalAdd" type="modal-lg" [title]="accion">
+  <div class="modal-body">
+    <h5 class="text-center mb-3">Verifica tus datos antes de guardarlos</h5>
+    <app-form-subcategori [edit]="edit" (clear)="onClose($event)"></app-form-subcategori>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('subcategorias','ver')" modal_id="modalView" type="modal-lg" [title]="accion">
+  <div class="modal-body">
+    <app-details-subcategori [subcategori]="_global.selectedSubcategori"></app-details-subcategori>
+  </div>
+</app-modal>
+<app-modal *ngIf="_access.accessRolsSection('subcategorias','eliminar')" modal_id="modalDelete" type="modal-lg" [title]="accion">
+  <div class="modal-body">
+    <app-delete-subcategori (cancel)="onClose($event)"></app-delete-subcategori>
+  </div>
+</app-modal>

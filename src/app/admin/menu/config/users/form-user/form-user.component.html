@@ -1,0 +1,47 @@
+<form #formUser="ngForm" (submit)="onSubmit(formUser)" class="row">
+    <div class="col-12 form-group">
+      <input id="nombre" required class="form-control" minlength="3" maxlength="100" (keyup)="replacePath(nombre)"
+        [(ngModel)]="_global.selectedUser.nombre" name="nombre" #nombre="ngModel" placeholder="Nombre..." type="text">
+      <validate [field]="nombre" nameField="Nombre"></validate>
+    </div>
+    <div class="col-12 form-group">
+      <input id="usuario" required class="form-control" minlength="3" maxlength="100" [(ngModel)]="_global.selectedUser.usuario"
+        name="usuario" #usuario="ngModel" placeholder="Usuario..." type="text">
+      <validate [field]="usuario" nameField="Usuario"></validate>
+    </div>
+    <div class="col-12 form-group" *ngIf="!edit">
+      <input id="contrasena" required class="form-control" minlength="3" maxlength="100" [(ngModel)]="_global.selectedUser.contrasena"
+        name="contrasena" #contrasena="ngModel" placeholder="Conpraseña..." type="text">
+      <validate [field]="contrasena" nameField="Contraseña"></validate>
+    </div>
+    <div class="col-12 form-group">
+        <input id="telefono" required class="form-control" pattern="\d{8}"  maxlength="8" [(ngModel)]="_global.selectedUser.telefono"
+          name="telefono" #telefono="ngModel" placeholder="Telefono..." type="text">
+        <validate [field]="telefono" nameField="Telefono"></validate>
+    </div>
+    <div class="col-12 form-group" *ngIf="!edit">
+      <select class="form-control" [(ngModel)]="_global.selectedUser.rol" name="rol" #rol="ngModel">
+        <option *ngFor="let rol of _global.rols" [value]="rol._id">{{ rol.nombre }}</option>
+      </select>
+      <validate [field]="rol" nameField="Rol"></validate>
+    </div>
+    <div class="col-12 form-group" *ngIf="edit">
+      <select class="form-control" [(ngModel)]="_global.selectedUser.rol._id" name="rol" #rol="ngModel">
+        <option *ngFor="let rol of _global.rols" [value]="rol._id">{{ rol.nombre }}</option>
+      </select>
+      <validate [field]="rol" nameField="Rol"></validate>
+    </div>
+    <div class="col-12 form-group" *ngIf="edit">
+      <select class="form-control" [(ngModel)]="_global.selectedUser.estatus" name="estatus" #estatus="ngModel">
+        <option selected disabled>Estatus</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+      <validate [field]="estatus" nameField="Estatus"></validate>
+    </div>
+    <div class="col-12 d-flex justify-content-end">
+      <button class="btn btn-success" [disabled]="petition" type="submit"> <i *ngIf="petition" class="fa fa-spin fa-cog"></i> Guardar</button>
+      <button class="btn btn-danger" [disabled]="petition" (click)="cancel()" type="reset">Cancelar</button>
+    </div>
+
+</form>

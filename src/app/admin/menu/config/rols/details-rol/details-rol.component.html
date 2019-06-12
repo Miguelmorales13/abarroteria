@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-sm-12 table-responsive-sm">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Permisos</th>
+          <th>Ver</th>
+          <th>Agregar</th>
+          <th>Modificar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Usuarios</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.usuarios.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.usuarios.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.usuarios.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.usuarios.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.usuarios.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.usuarios.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.usuarios.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.usuarios.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Roles</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.roles.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.roles.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.roles.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.roles.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.roles.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.roles.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.roles.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.roles.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Clientes</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.clientes.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.clientes.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.clientes.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.clientes.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.clientes.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.clientes.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.clientes.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.clientes.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Proveedores</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.proveedores.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.proveedores.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.proveedores.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.proveedores.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.proveedores.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.proveedores.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.proveedores.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.proveedores.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Ventas</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.ventas.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.ventas.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.ventas.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.ventas.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.ventas.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.ventas.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.ventas.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.ventas.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Categorias</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.categorias.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.categorias.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.categorias.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.categorias.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.categorias.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.categorias.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.categorias.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.categorias.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Subcategorias</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.subcategorias.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.subcategorias.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.subcategorias.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.subcategorias.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.subcategorias.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.subcategorias.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.subcategorias.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.subcategorias.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+        <tr>
+          <td>Productos</td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.productos.ver? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.productos.ver? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.productos.agregar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.productos.agregar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.productos.modificar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.productos.modificar? 'fa-check':'fa-times'"></i> </span>  </td>
+          <td> <span class="badge" [ngClass]="!rol.permisos.productos.eliminar? 'badge-danger': 'badge-success'" > <i class="fa" [ngClass]="rol.permisos.productos.eliminar? 'fa-check':'fa-times'"></i> </span>  </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="1" >Clave:</td>
+          <td colspan="4" >{{rol._id}}</td>
+        </tr>
+        <tr>
+          <td colspan="1" >Nombre:</td>
+          <td colspan="4" >{{rol.nombre}}</td>
+        </tr>
+        <tr>
+          <td colspan="1" >Descripcion: </td>
+          <td colspan="4" >{{rol.descripcion}}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

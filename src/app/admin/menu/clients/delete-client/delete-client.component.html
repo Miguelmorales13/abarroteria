@@ -1,0 +1,7 @@
+<p class="text-center">¿Estas seguro de eliminar este cliente?, una vez eliminada no se podra recuperar</p>
+
+<app-details-client [client]="_global.selectedClient"></app-details-client>
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-success" [disabled]="petition" (click)="confirm()" type="button"><i *ngIf="petition" class="fa fa-spin fa-cog"></i> Confirmar</button>
+  <button class="btn btn-danger" [disabled]="petition" (click)="cancelDelete()" type="button">Cancelar</button>
+</div>

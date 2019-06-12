@@ -1,0 +1,20 @@
+<form #formClient="ngForm" (submit)="onSubmit(formClient)" class="row">
+  <div class="col-12 form-group">
+    <input id="nombre" required class="form-control" minlength="3" maxlength="100" [(ngModel)]="_global.selectedClient.nombre" name="nombre" #nombre="ngModel" placeholder="Nombre..." type="text">
+    <validate [field]="nombre" nameField="Nombre"></validate>
+  </div>
+  <div class="col-12 form-group">
+    <input id="direccion" required class="form-control" minlength="3" maxlength="100" [(ngModel)]="_global.selectedClient.direccion"
+      name="direccion" #direccion="ngModel" placeholder="Dirección ..." type="text">
+    <validate [field]="direccion" nameField="Dirección"></validate>
+  </div>
+  <div class="col-12 form-group">
+    <input id="telefono" required pattern="\d{8}" class="form-control" maxlength="8" [(ngModel)]="_global.selectedClient.telefono"
+      name="telefono" #telefono="ngModel" placeholder="Telefono..." type="text">
+    <validate [field]="telefono" nameField="Telefono"></validate>
+  </div>
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-success" [disabled]="petition"  type="submit"> <i *ngIf="petition" class="fa fa-spin fa-cog"></i>  Guardar</button>
+    <button class="btn btn-danger" [disabled]="petition" (click)="cancel()" type="reset">Cancelar</button>
+  </div>
+</form>
